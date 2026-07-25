@@ -1,0 +1,230 @@
+:root {
+  --cream: #F7F2E9;
+  --paper: #FFFDF8;
+  --ink: #2B2A33;
+  --ink-soft: #6B6A75;
+  --coral: #E8674B;
+  --coral-soft: #F6D9D1;
+  --line: #E5DECE;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(43, 42, 51, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--coral);
+  margin: 0 0 8px;
+}
+
+.app__title {
+  font-family: 'Fraunces', serif;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+
+.app__subtitle {
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin: 0 0 36px;
+}
+
+.composer {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.composer__input {
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.composer__input::placeholder {
+  color: #B8B3A4;
+}
+
+.composer__input:focus {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px var(--coral-soft);
+}
+
+.composer__button {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+
+.composer__button:hover {
+  background: var(--coral);
+}
+
+.composer__button:active {
+  transform: scale(0.97);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 16px;
+  transition: border-color 0.15s ease, opacity 0.15s ease;
+  animation: rise 0.25s ease both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.task__check {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.task__check svg {
+  width: 13px;
+  height: 13px;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.task--done .task__check {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+
+.task--done .task__check svg {
+  opacity: 1;
+}
+
+.task__text {
+  flex: 1;
+  font-size: 15px;
+  color: var(--ink);
+  cursor: pointer;
+  word-break: break-word;
+}
+
+.task--done .task__text {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+}
+
+.task__delete {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.task:hover .task__delete {
+  opacity: 1;
+}
+
+.task__delete:hover {
+  background: var(--coral-soft);
+  color: var(--coral);
+}
+
+.task__delete svg {
+  width: 15px;
+  height: 15px;
+}
+
+.empty {
+  text-align: center;
+  padding: 56px 20px;
+  color: var(--ink-soft);
+}
+
+.empty__title {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+
+.empty__hint {
+  font-size: 14px;
+  margin: 0;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 40px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-align: center;
+}

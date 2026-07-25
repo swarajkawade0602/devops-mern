@@ -1,0 +1,50 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    image: todo-backend-image:v1
+    container_name: todo-backend-container
+
+    ports:
+      - "5000:5000"
+
+    env_file:
+      - ./backend/.env
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
+
+    networks:
+      - todo-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    image: todo-frontend-image:v2
+    container_name: todo-frontend-container
+
+    ports:
+      - "80:80"
+
+    restart: unless-stopped
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    networks:
+      - todo-network
+
+networks:
+  todo-network:
+    driver: bridge
