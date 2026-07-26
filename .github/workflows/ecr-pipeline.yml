@@ -24,6 +24,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Debug Repository
+        run: |
+          echo "Repository = ${{ github.repository }}"
+          echo "Ref = ${{ github.ref }}"
+          echo "Actor = ${{ github.actor }}"
+
+      - name: Request OIDC Token
+        run: |
+         echo "ACTIONS_ID_TOKEN_REQUEST_URL exists: $ACTIONS_ID_TOKEN_REQUEST_URL"  
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
