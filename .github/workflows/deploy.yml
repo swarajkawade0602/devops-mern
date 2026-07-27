@@ -43,4 +43,12 @@ jobs:
         
       - name: Verify Backend Images
         run: |
-           docker images | grep todo-backend     
+           docker images | grep todo-backend  
+      
+      - name: Push Backend Image (latest)
+        run: |
+           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-backend:latest
+
+      - name: Push Backend Image (SHA)
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-backend:${{ github.sha }}     
