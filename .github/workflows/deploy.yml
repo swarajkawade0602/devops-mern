@@ -52,3 +52,22 @@ jobs:
       - name: Push Backend Image (SHA)
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-backend:${{ github.sha }}     
+
+      - name: Build Frontend Docker Image
+        run: |
+           docker build \
+           -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-frontend:latest \
+           -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-frontend:${{ github.sha }} \
+            ./frontend 
+      
+      - name: Verify Frontend Images
+        run: |
+          docker images | grep todo-frontend      
+      
+      - name: Push Frontend Image (latest)
+        run: |
+           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-frontend:latest
+
+      - name: Push Frontend Image (SHA)
+        run: |
+            docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-frontend:${{ github.sha }}    
