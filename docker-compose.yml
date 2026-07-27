@@ -1,42 +1,32 @@
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-
-    image: todo-backend-image:v1
-    container_name: todo-backend-container
+    image: 827276049957.dkr.ecr.ap-south-1.amazonaws.com/todo-backend:latest
+    container_name: todo-backend
+    restart: unless-stopped
 
     ports:
       - "5000:5000"
 
     env_file:
-      - ./backend/.env
+      - .env
 
-    restart: unless-stopped
+    networks:
+      - todo-network
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 30s
       timeout: 10s
-      retries: 10
-      start_period: 20s
-
-    networks:
-      - todo-network
+      retries: 3
+      start_period: 40s
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-
-    image: todo-frontend-image:v2
-    container_name: todo-frontend-container
+    image: 827276049957.dkr.ecr.ap-south-1.amazonaws.com/todo-frontend:latest
+    container_name: todo-frontend
+    restart: unless-stopped
 
     ports:
       - "80:80"
-
-    restart: unless-stopped
 
     depends_on:
       backend:
