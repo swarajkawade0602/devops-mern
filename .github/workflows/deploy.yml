@@ -36,4 +36,11 @@ jobs:
       
       - name: Build Backend Docker Image
         run: |
-          docker build -t todo-backend:latest ./backend    
+           docker build \
+           -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-backend:latest \
+           -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/todo-backend:${{ github.sha }} \
+           ./backend   
+        
+      - name: Verify Backend Images
+        run: |
+           docker images | grep todo-backend     
